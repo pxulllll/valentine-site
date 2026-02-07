@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine 💖</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+}
+
+h1, p {
+  color: white;
+  text-shadow: 2px 2px 10px rgba(0,0,0,0.25);
+}
+
+h1 { font-size: 2.5em; }
+
+#name {
+  color: #fff5f7;
+}
+
+#countdown {
+  font-size: 1.1em;
+  margin-top: 10px;
+}
+
+.buttons {
+  margin-top: 25px;
+}
+
+button {
+  padding: 14px 30px;
+  font-size: 18px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#yes {
+  background: #ff1744;
+  color: white;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+}
+
+#yes:hover {
+  transform: scale(1.1);
+}
+
+#no {
+  position: absolute;
+  background: white;
+  color: #ff1744;
+}
+
+.heart {
+  position: absolute;
+  color: #ff1744;
+  font-size: 22px;
+  animation: float 6s linear infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(100vh) scale(0.6); opacity: 1; }
+  100% { transform: translateY(-10vh) scale(1.4); opacity: 0; }
+}
+
+img {
+  max-width: 260px;
+  border-radius: 25px;
+  margin-top: 20px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.35);
+}
+</style>
+</head>
+
+<body>
+
+<h1>Will you be my Valentine <span id="name">my princess</span>? 💗🎀</h1>
+<p id="countdown"></p>
+
+<div class="buttons">
+  <button id="yes" onclick="yesClick()">Yes 💕</button>
+  <button id="no" onmouseover="moveNo()">No 💔</button>
+</div>
+
+<!-- 🎵 Music -->
+<audio autoplay loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// 🌸 Name from URL
+const params = new URLSearchParams(window.location.search);
+const name = params.get("name");
+if (name) {
+  document.getElementById("name").innerText = name;
+}
+
+// 💔 NO button escape
+function moveNo() {
+  const no = document.getElementById("no");
+  no.style.left  Math.random() * (window.innerWidth - 100) + "px";
+  no.style.top = Math.random() * (window.innerHeight - 50) + "px";
+}
+
+// 💖 YES page
+function yesClick() {
+  document.body.innerHTML = `
+    <h1>I knew you’d say YES 🥰💘</h1>
+    <p>You make my world brighter every single day ✨</p>
+    <p>Happy Valentine’s Day 💐</p>
+    <p>In your eyes, I have found a home where my soul finally feels at rest🥰
+    Every moment spent with you is a beautiful reminder that true happiness exists
+     and I am so grateful to walk this path by your side😁
+     Thank you for loving me so completely
+     and for making even the simplest days feel like a dream come true🥹
+    I love you more than words could ever express kunjaa😘, now and for all the days to come💌💋💋</p>
+    <img src="photo.jpg">
+  `;
+}
+
+// 💕 Floating hearts
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}, 300);
+
+// ⏳ Countdown
+const target = new Date("February 14, 2026 00:00:00").getTime();
+setInterval(() => {
+  const now = new Date().getTime();
+  const diff = target - now;
+
+  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const m = Math.floor((diff / (1000 * 60)) % 60);
+  const s = Math.floor((diff / 1000) % 60);
+
+  document.getElementById("countdown").innerHTML =
+    `Valentine’s Day in ${d}d ${h}h ${m}m ${s}s 💕`;
+}, 1000);
+</script>
+
+</body>
+</html>
